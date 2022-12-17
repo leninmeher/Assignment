@@ -8,10 +8,11 @@ const app = express()
 const cors = require("cors")
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+var dotenv = require('dotenv');
+
+dotenv.config();
 
 app.use(express.json({ extended: false }))
-
-const uri = "mongodb+srv://leninmern:leninmern@cluster0.kroxssy.mongodb.net/?"
 
 var storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -22,6 +23,8 @@ var storage = multer.diskStorage({
   },
 })
 var uploads = multer({ storage: storage })
+
+var uri = process.env.MONGO_URI;
 
 const connectDB = async () => {
   try {
